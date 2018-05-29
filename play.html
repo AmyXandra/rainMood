@@ -1,0 +1,223 @@
+<!Doctype html>
+<html>
+    <head>
+        <title>RainMood</title>
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/bootstrap.css">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Lato|Roboto" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="text/javascript" charset="utf-8" src="cordova-X.X.X.js"></script>
+    <script type="text/javascript" charset="utf-8" src="jquery.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      var vol; // Here store current volume to unmute later.
+      //Set volume to 95 when click button
+      $('#volUp').bind('click',function(){
+         cordova.plugins.VolumeControl.setVolume(95, onVolSuccess, onVolError);
+      });
+      //Set volume to 25 when click button
+      $('#volDown').bind('click',function(){
+          cordova.plugins.VolumeControl.setVolume(25, onVolSuccess, onVolError);
+      });
+      //Mute/Unmute volume when click button (actually set volume to 0)
+      $('#volMute').bind('click',function(){
+          // Get the volume to store for unmute later
+          cordova.plugins.VolumeControl.getVolume(getVolSuccess, getVolError);
+
+          cordova.plugins.VolumeControl.toggleMuteVolume(vol, onVolSuccess, onVolError);
+      });
+      //Get current volume
+      $('#currVol').bind('click',function(){
+          cordova.plugins.VolumeControl.getVolume(getVolSuccess, getVolError);
+      });
+      //Callbacks
+      function onVolSuccess(){
+          console.log("Volume changed");
+      }
+      function onVolError(){
+          //Manage Error
+      }
+      function getVolSuccess(r){
+          vol = r;
+          console.log(r);
+      }
+      function getVolError(){
+          //Manage Error
+      }
+    </script>
+    </head>
+    <body>
+            <audio id="myAudio">
+                <source src="sounds/rain_on_umbrella.mp3" type="audio/mp3">
+            </audio>
+            <audio id="snow1">
+                <source src="sounds/17796_1462214581.mp3" type="audio/mp3">
+            </audio>
+            <audio id="bells">
+                <source src="sounds/16410_1460641238.mp3" type="audio/mp3">
+            </audio>
+            <audio id="piano1">
+                <source src="sounds/17840_1462216132.mp3" type="audio/mp3">
+            </audio>
+            <audio id="guitar">
+                <source src="sounds/17818_1462215589.mp3" type="audio/mp3">
+            </audio>
+            <audio id="snow2">
+                <source src="sounds/18451_1464718865.mp3" type="audio/mp3">
+            </audio>
+            <audio id="thunder">
+                <source src="sounds/heavy_rain_with_thunder.mp3" type="audio/mp3">
+            </audio>
+            <audio id="piano2">
+                <source src="sounds/downtown_rain.mp3" type="audio/mp3">
+            </audio>
+        <div class="playing">
+           <div class="play-header col-sm-12">
+                <h2>Rain on Leaves</h2>                
+           </div>
+           <div class="play-btns col-sm-12">
+                <div class="play-btn col-sm-4"><a href="sounds.html"><img src="images/home.png"></a></div>
+                <div class="play-btn col-sm-4"><img src="images/plus.png" data-toggle="modal" data-target="#myModal"></div>
+                <div class="play-btn col-sm-4"><img src="images/bell.png"></div>
+           </div>
+
+           <div class="play-stop col-sm-12 col-xs-12">
+               <div class="col-sm-6 col-xs-6">
+                <div id="play"class="control"><img src="images/play.png"onclick="playAudio()" type="button"></div>
+                <div id="pause" style="display:none" class="control"><img src="images/pause.png"onclick="pauseAudio()" type="button"></div>
+               </div>
+                <div class="control col-sm-6 col-xs-6"><h3>07:36</h3></div>
+              
+           </div>
+           <!-- <div>
+                <input type="button" id="volUp" value="Volume up"/>
+                <input type="button" id="volDown" value="Volume down"/>
+                <input type="button" id="volMute" value="Mute/Unmute Volume"/>
+                <input type="button" id="currVol" value="Get current Volume"/>
+           </div> -->
+           
+        </div>
+
+        
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+            
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header" style="border-color:transparent;">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+                <div class="modal-body">
+                
+                <div>
+                    <img src="images/plus.png" style="width:28px; margin:10px; padding:8px; background:rgb(32, 156, 32); border-radius:50%; inline-block">
+                    <h4 style="display:inline-block;">Open music gallery</h4>
+                </div>
+                <div class="add-sounds">
+                    <h5>Other music sounds</h5>
+                    <div class="row more-sounds">
+                        <div class="col-md-2 more-sounds-item">
+                            <img src="images/piano.png" onclick="document.getElementById('piano1').play();">
+                        </div>
+                        <div class="col-md-2 more-sounds-item">
+                            <img src="images/piano.png" onclick="document.getElementById('piano2').play();">
+                        </div>
+                        <div class="col-md-2 more-sounds-item">
+                            <img src="images/thunder.png" onclick="document.getElementById('thunder').play();">
+                        </div>
+                        <div class="col-md-2 more-sounds-item">
+                            <img src="images/guitar.png" onclick="document.getElementById('guitar').play();">
+                        </div>
+                        <div class="col-md-2 more-sounds-item">
+                            <img src="images/bell-a.png" onclick="document.getElementById('bell').play();">
+                        </div>
+                    </div>
+                    <div class="row more-sounds">
+                            <div class="col-md-2 more-sounds-item">
+                                <img src="images/snow.png" onclick="document.getElementById('snow1').play();">
+                            </div>
+                            <div class="col-md-2 more-sounds-item">
+                                <img src="images/thunder.png" onclick="document.getElementById('thunder').play();">
+                            </div>
+                            <div class="col-md-2 more-sounds-item">
+                                <img src="images/snow.png" onclick="document.getElementById('snow2').play();">
+                            </div>
+                            
+                        </div>
+                </div>
+
+                <div class="add-sounds">
+                    <h5>Nature</h5>
+                    <div class="row  more-sounds">
+                        <div class="col-md-2 more-sounds-item">
+                            <img src="images/piano.png">
+                        </div>
+                        <div class="col-md-2 more-sounds-item">
+                            <img src="images/piano.png">
+                        </div>
+                        <div class="col-md-2 more-sounds-item">
+                            <img src="images/thunder.png">
+                        </div>
+                        <div class="col-md-2 more-sounds-item">
+                            <img src="images/guitar.png">
+                        </div>
+                        <div class="col-md-2 more-sounds-item">
+                            <img src="images/bell.png">
+                        </div>
+                    </div>
+                </div>
+                
+                </div>
+                
+            </div>
+            
+            </div>
+        </div>
+
+              
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" role="dialog">
+                  <div class="modal-dialog">
+                  
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Modal Header</h4>
+                      </div>
+                      <div class="modal-body">
+                        <p>Some text in the modal.</p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+                
+              </div>
+              
+
+        <script>
+                var x = document.getElementById("myAudio"); 
+                
+                function playAudio() { 
+                    x.play(); 
+                    document.getElementById("play").style.display = 'none'; 
+                    document.getElementById("pause").style.display = 'block';
+                    
+                } 
+                
+                function pauseAudio() { 
+                    x.pause(); 
+                    document.getElementById("play").style.display = 'block';
+                    document.getElementById("pause").style.display = 'none'; 
+                } 
+                </script>
+
+    </body>
+</html>
